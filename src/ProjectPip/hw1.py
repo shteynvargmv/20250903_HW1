@@ -1,9 +1,9 @@
+"""Cистема для управления клиентами и заказами с функцией расчета скидок и генерации отчетов."""
 class CustomerDataClass:
     """Класс для представления данных клиента и управления заказами."""
     
     def __init__(self, customer_id, customer_name):
-        """
-        Инициализирует объект клиента. 
+        """Инициализирует объект клиента.
         
         Args:
             customer_id (int): Уникальный идентификатор клиента
@@ -14,8 +14,7 @@ class CustomerDataClass:
         self.orders = []  # Список для хранения заказов клиента
 
     def add_order(self, order_object):
-        """
-        Добавляет заказ в список заказов клиента.
+        """Добавляет заказ в список заказов клиента.
         
         Args:
             order_object (OrderDataClass): Объект заказа для добавления
@@ -23,9 +22,8 @@ class CustomerDataClass:
         self.orders.append(order_object)
 
     def get_total_amount(self):
-        """
-        Вычисляет общую сумму всех заказов клиента.
-        
+        """Вычисляет общую сумму всех заказов клиента.
+                
         Returns:
             float: Общая сумма всех заказов клиента
         """
@@ -40,8 +38,7 @@ class OrderDataClass:
     """Класс для представления данных заказа."""
     
     def __init__(self, order_id, amount):
-        """
-        Инициализирует объект заказа.
+        """Инициализирует объект заказа.
         
         Args:
             order_id (int): Уникальный идентификатор заказа
@@ -52,8 +49,7 @@ class OrderDataClass:
 
 
 def calculate_discount(customer_obj):
-    """
-    Вычисляет размер скидки для клиента на основе общей суммы заказов.
+    """Вычисляет размер скидки для клиента на основе общей суммы заказов.
     
     Args:
         customer_obj (CustomerDataClass): Объект клиента
@@ -63,40 +59,37 @@ def calculate_discount(customer_obj):
     """
     total_amount = customer_obj.get_total_amount()
     # Скидка 10% применяется только для сумм превышающих 1000
-    if total_amount > 1000:
-        discount = total_amount * 0.1
-    else:
-        discount = 0
+    discount = total_amount * 0.1 if total_amount > 1000 else 0
     return discount
 
 
 def print_customer_report(customer_obj):
-    """
-    Выводит детальный отчет по клиенту в консоль.
-    
+    """Выводит детальный отчет по клиенту в консоль.
+        
     Args:
         customer_obj (CustomerDataClass): Объект клиента для отчета
     """
-    print("Customer Report for:", customer_obj.customer_name)
-    print("Total Orders:", len(customer_obj.orders))
-    print("Total Amount:", customer_obj.get_total_amount())
-    print("Discount:", calculate_discount(customer_obj))
+    print('Customer Report for:', customer_obj.customer_name)
+    print('Total Orders:', len(customer_obj.orders))
+    print('Total Amount:', customer_obj.get_total_amount())
+    print('Discount:', calculate_discount(customer_obj))
     
     # Вычисляем средний чек, избегая деления на ноль
     if len(customer_obj.orders) > 0:
         average_order = customer_obj.get_total_amount() / len(customer_obj.orders)
     else:
         average_order = 0  # Значение по умолчанию при отсутствии заказов
-    print("Average Order:", average_order)
+    print('Average Order:', average_order)
 
 
 def main_program():
-    """
-    Основная функция программы, демонстрирующая работу с клиентами и заказами.
+    """Основная функция программы.
+    
+    Демонстрирует работу с клиентами и заказами.
     Создает тестовые данные и выводит отчеты.
     """
     # Создаем первого клиента с двумя заказами
-    c1 = CustomerDataClass(1, "SAP Customer")
+    c1 = CustomerDataClass(1, 'SAP Customer')
     o1 = OrderDataClass(101, 500)
     o2 = OrderDataClass(102, 800)
     c1.add_order(o1)
@@ -106,7 +99,7 @@ def main_program():
     print_customer_report(c1)
 
     # Создаем второго клиента без заказов
-    c2 = CustomerDataClass(2, "Empty Customer")
+    c2 = CustomerDataClass(2, 'Empty Customer')
     
     # Генерируем отчет для второго клиента
     print_customer_report(c2)
